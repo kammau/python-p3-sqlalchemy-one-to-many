@@ -18,7 +18,7 @@ class Game(Base):
     platform = Column(String())
     price = Column(Integer())
 
-    reviews = relationship('Review', backref=backref('game'))
+    reviews = relationship('Review', backref=backref('game'), cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'Game(id={self.id}, ' + \
@@ -31,6 +31,7 @@ class Review(Base):
     id = Column(Integer(), primary_key=True)
     score = Column(Integer())
     comment = Column(String())
+
     game_id = Column(Integer(), ForeignKey('games.id'))
 
     def __repr__(self):
